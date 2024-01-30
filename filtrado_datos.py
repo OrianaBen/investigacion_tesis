@@ -42,35 +42,35 @@ def minus_360(dataframe,label):
 
     dataframe[label] = dataframe[label].apply(lambda x: x-360)
 
-file = read_data(
-    'datos_crudos/BASEBougTIERRAFebrero2018.DAT',
-    [0,1,4,5,6],
-    labels=['lon', 'lat','base','altura_m','grav_obs_mgal']
-)
+# file = read_data(
+#     'datos_crudos/BASEBougTIERRAFebrero2018.DAT',
+#     [0,1,4,5,6],
+#     labels=['lon', 'lat','base','altura_m','grav_obs_mgal']
+# )
 
-save_table_tocsv(
-        filter_data(file,'lon','lat','altura_m',-68.2,-73.6,12.8,6.3),
-        'def_data.csv'
-    )
+# save_table_tocsv(
+#         filter_data(file,'lon','lat','altura_m',-68.2,-73.6,12.8,6.3),
+#         'def_data.csv'
+#     )
 
+# file = read_data(
+#     'datos_crudos/EIGEN-6C4_a88f1_P2.gdf',
+#     [0,1,2,3],
+#     35,
+#     labels=['lon','lat','altura_m','grav_obs_mgal']
+#     )
+
+# minus_360(file,'lon')
+
+# save_table_tocsv(file,'satelitalesp2.csv')
+    
 file = read_data(
-    'datos_crudos/EIGEN-6C4_a7777_P1.gdf',
-    [0,1,2,3],
+    'datos_crudos/EIGEN-6C4_9effab(1arcmin).gdf',
+    [0,1,2],
     35,
-    labels=['lon','lat','altura_m','grav_obs_mgal']
+    labels=['lon','lat','anom_al_mgal']
     )
 
 minus_360(file,'lon')
 
-save_table_tocsv(file,'satelitalesp1.csv')
-
-file = read_data(
-    'datos_crudos/EIGEN-6C4_a88f1_P2.gdf',
-    [0,1,2,3],
-    35,
-    labels=['lon','lat','altura_m','grav_obs_mgal']
-    )
-
-minus_360(file,'lon')
-
-save_table_tocsv(file,'satelitalesp2.csv')
+save_table_tocsv(file,'anomalia_airelibre_1arcmin.csv')
