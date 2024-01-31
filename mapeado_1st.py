@@ -20,10 +20,21 @@ spacing = 1/60
 # grd = vd.Linear().fit(coordinates,data.anom_al_mgal)
 # grid = grd.grid(region=region,spacing=spacing, projection=projection, dims=['lat','lon'], data_names="anom_al_mgal")
 
-#nearest neighbors interpolation, k being number of neighbors to consider
-grd = vd.KNeighbors(k=10)
-grd.fit(coordinates, data.anom_al_mgal)
-grid = grd.grid(region=region, spacing=spacing, projection=projection,dims=['lat','lon'], data_names="anom_al_mgal")
+##nearest neighbors interpolation, k being number of neighbors to consider
+# grd = vd.KNeighbors(k=10)
+# grd.fit(coordinates, data.anom_al_mgal)
+# grid = grd.grid(region=region, spacing=spacing, projection=projection,dims=['lat','lon'], data_names="anom_al_mgal")
+
+##cubic interpolation
+# grd = vd.Cubic().fit(coordinates, data.anom_al_mgal)
+# grid = grd.grid(region=region, spacing=spacing, projection=projection,dims=['lat','lon'], data_names="anom_al_mgal")
+
+## interpolation using splines (not enough ram to 1arcmin)
+## damping parameter obtained by cross-validated spline (see Verde SplineCV documentation) with least R squared
+# spline = vd.SplineCV()
+# spline.fit(coordinates, data.anom_al_mgal)
+# grid = spline.grid(region=region, spacing=spacing, projection=projection,dims=['lat','lon'], data_names="anom_al_mgal")
+
 crs = ccrs.PlateCarree()
 
 plt.figure(figsize=(7,6))
@@ -32,5 +43,5 @@ ax.coastlines()
 pc = grid.anom_al_mgal.plot.pcolormesh(ax=ax,transform=crs, zorder=-1, cmap = 'jet', add_colorbar=False)
 plt.colorbar(pc).set_label('mgal')
 
-plt.savefig('anom_al_1arcmin_5neighbors')
+plt.savefig('anom_al_1arcmin_spline')
 plt.show()
