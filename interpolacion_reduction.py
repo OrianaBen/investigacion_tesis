@@ -16,7 +16,7 @@ coordinates = (x,y)
 region=vd.get_region((data.lon,data.lat))
 spacing = 1/60
 
-reducer = vd.BlockReduce(reduction=np.mean, spacing=spacing)
+reducer = vd.BlockReduce(reduction=np.average, spacing=spacing,adjust='region')
 coordinates, anom_al = reducer.filter((data.lon, data.lat), data.anom_al_mgal)
 
 projection = pyproj.Proj(proj="merc", lat_ts=data.lat.mean())
@@ -49,5 +49,5 @@ ax.coastlines()
 pc = grid.anom_al_mgal.plot.pcolormesh(ax=ax,transform=crs, zorder=-1, cmap = 'seismic', add_colorbar=False)
 plt.colorbar(pc).set_label('mgal')
 
-plt.savefig('test_reduced')
+#plt.savefig('test_reduced')
 plt.show()
